@@ -11,6 +11,8 @@ services:
       - ./traefik.yml:/etc/traefik/traefik.yml
       - ./letsencrypt:/letsencrypt
       - ./letsencrypt/acme.json:/acme.json
+    networks:
+      - web
 networks:
   web:
     external: true
