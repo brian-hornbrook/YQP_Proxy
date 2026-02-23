@@ -13,6 +13,21 @@ services:
       - ./letsencrypt/acme.json:/acme.json
     networks:
       - web
+    labels:
+      - "autoheal=true"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -q0- http://127.0.0.1:80/ping | grep -q 'OK' || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  autoheal:
+    image: willfarrell/autoheal
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+
 networks:
   web:
     external: true
