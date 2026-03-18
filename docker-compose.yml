@@ -12,7 +12,7 @@ services:
       - ./letsencrypt:/letsencrypt
       - ./letsencrypt/acme.json:/acme.json
     networks:
-      - web
+      - traefik_proxy
     labels:
       - "autoheal=true"
     healthcheck:
@@ -29,5 +29,5 @@ services:
     restart: always
 
 networks:
-  web:
+  traefik_proxy:
     external: true
